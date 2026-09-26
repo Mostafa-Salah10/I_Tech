@@ -17,7 +17,7 @@ class ProductRepoImp implements ProductRepo {
 
       return right(products);
     } on DioException catch (e) {
-      ///handle any backend response
+      ///handle any backend response 
       return left(e.toString());
     } catch (e) {
       return left(e.toString());
