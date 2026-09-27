@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:i_tech/core/themes/app_colors.dart';
@@ -6,6 +8,7 @@ import 'package:i_tech/core/widgets/app_text_form_field.dart';
 import 'package:i_tech/features/auth/presentation/manager/auth_cubit.dart';
 import 'package:i_tech/features/auth/presentation/screens/sign_in_screen.dart';
 import 'package:i_tech/features/auth/presentation/widgets/custom_have_account_widget.dart';
+import 'package:i_tech/features/auth/presentation/widgets/show_toast_msg.dart';
 
 class SignUpForm extends StatefulWidget {
   const new({super.key});
@@ -80,12 +83,36 @@ class _SignUpFormState extends State<SignUpForm> {
             },
           ),
 
-          AppButton(
-            text: "Sign Up",
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                ///sign in
+          BlocConsumer<AuthCubit, AuthState>(
+            listener: (context, state) {
+              if (state is SignUpSuccess) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignInScreen()),
+                );
+              } else if (state is SignUpFailure) {
+                log(state.errMsg);
+                showAppSnackBar(
+                  backgroundColor: AppColors.errorColor,
+                  context,
+                  text: state.errMsg,
+                );
               }
+            },
+            builder: (context, state) {
+              return AppButton(
+                text: state is SignUpLoading ? "Loading..." : "Sign Up",
+                onPressed: () {
+                  if (_formKey.currentState!.validate() &&
+                      state is! SignUpLoading) {
+                    auth.signUp(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                      name: _nameController.text,
+                    );
+                  }
+                },
+              );
             },
           ),
 

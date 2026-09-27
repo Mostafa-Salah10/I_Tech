@@ -6,6 +6,7 @@ import 'package:i_tech/core/widgets/app_text_form_field.dart';
 import 'package:i_tech/features/auth/presentation/manager/auth_cubit.dart';
 import 'package:i_tech/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:i_tech/features/auth/presentation/widgets/custom_have_account_widget.dart';
+import 'package:i_tech/features/auth/presentation/widgets/show_toast_msg.dart';
 
 class SignInForm extends StatefulWidget {
   const new({super.key});
@@ -81,12 +82,31 @@ class _SignInFormState extends State<SignInForm> {
             ),
           ),
 
-          AppButton(
-            text: "Sign In",
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                ///sign in
+          BlocConsumer<AuthCubit, AuthState>(
+            listener: (context, state) {
+              if (state is SignInSuccess) {
+                //go to home
+              } else if (state is SignInFailure) {
+                showAppSnackBar(
+                  backgroundColor: AppColors.errorColor,
+                  context,
+                  text: state.errMsg,
+                );
               }
+            },
+            builder: (context, state) {
+              return AppButton(
+                text: state is SignInLoading ? "Loading..." : "Sign In",
+                onPressed: () {
+                  if (_formKey.currentState!.validate() &&
+                      state is! SignInLoading) {
+                    auth.signIn(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                    );
+                  }
+                },
+              );
             },
           ),
 
