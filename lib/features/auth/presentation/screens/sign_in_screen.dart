@@ -11,12 +11,14 @@ class SignInScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: [
-              const CustomTopImageAndTitleAuthWidget(title: "Login"),
-
-              SignInForm(),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const CustomTopImageAndTitleAuthWidget(title: "Login"),
+            
+                SignInForm(),
+              ],
+            ),
           ),
         ),
       ),

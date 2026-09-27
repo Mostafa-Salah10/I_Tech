@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:i_tech/core/themes/app_colors.dart';
 import 'package:i_tech/core/widgets/app_button.dart';
 import 'package:i_tech/core/widgets/app_text_form_field.dart';
+import 'package:i_tech/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:i_tech/features/auth/presentation/widgets/custom_have_account_widget.dart';
 
 class SignInForm extends StatelessWidget {
@@ -48,7 +49,12 @@ class SignInForm extends StatelessWidget {
           CustomDonHaveAccountWidget(
             leadingText: "Don't have an account?",
             trailingText: "Sing Up",
-            onTap: () {},
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => SignUpScreen()),
+              );
+            },
           ),
         ],
       ),
