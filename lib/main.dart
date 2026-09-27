@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:i_tech/core/themes/app_colors.dart';
+import 'package:i_tech/features/auth/presentation/manager/auth_cubit.dart';
 import 'package:i_tech/features/auth/presentation/screens/sign_in_screen.dart';
 
 void main() async {
@@ -11,13 +13,16 @@ class NotesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        scaffoldBackgroundColor: AppColors.lightBackgroundColor
+    return BlocProvider(
+      create: (context) => AuthCubit(),
+      child: MaterialApp(
+        theme: ThemeData(
+          scaffoldBackgroundColor: AppColors.lightBackgroundColor,
+        ),
+        title: "Notes App",
+        debugShowCheckedModeBanner: false,
+        home: SignInScreen(),
       ),
-      title: "Notes App",
-      debugShowCheckedModeBanner: false,
-      home: SignInScreen(),
     );
   }
 }
