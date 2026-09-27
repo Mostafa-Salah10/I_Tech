@@ -1,6 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:i_tech/data/repo/product_repo_imp.dart';
+import 'package:i_tech/data/repo/product_repo.dart';
 import 'package:i_tech/presentation/manager/product_cubit.dart';
 
 class ProductsScreen extends StatelessWidget {
@@ -10,7 +11,7 @@ class ProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          ProductCubit(productRepo: ProductRepoImp())..getProducts(),
+          ProductCubit(productRepo: ProductRepo(dio: Dio()))..getProducts(),
       child: Scaffold(
         body: BlocBuilder<ProductCubit, ProductState>(
           builder: (context, state) {
