@@ -11,6 +11,7 @@ class AppTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final int? maxLines;
   final int? minLines;
+  final ValueChanged<String>? onChanged;
 
   const AppTextFormField({
     super.key,
@@ -23,11 +24,13 @@ class AppTextFormField extends StatelessWidget {
     this.controller,
     this.maxLines,
     this.minLines,
+    this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
       maxLines: maxLines ?? 1,
       minLines: minLines ?? 1,
       controller: controller,
@@ -41,7 +44,9 @@ class AppTextFormField extends StatelessWidget {
         suffixIcon: suffixIcon,
 
         filled: true,
-        fillColor: AppColors.greyColor.withValues(alpha: 0.2),
+
+        hintStyle: TextStyle(fontSize: 18, color: AppColors.greyColor),
+        fillColor: AppColors.greyColor.withValues(alpha: 0.15),
         contentPadding: const EdgeInsets.all(17),
         errorBorder: _customBorder(color: AppColors.errorColor),
         focusedErrorBorder: _customBorder(color: AppColors.errorColor),

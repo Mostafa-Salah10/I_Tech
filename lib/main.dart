@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:i_tech/core/themes/app_colors.dart';
 import 'package:i_tech/features/auth/data/repo/auth_repo.dart';
 import 'package:i_tech/features/auth/presentation/manager/auth_cubit.dart';
-import 'package:i_tech/features/auth/presentation/screens/sign_in_screen.dart';
+import 'package:i_tech/features/home/data/repo/home_repo.dart';
+import 'package:i_tech/features/home/presentation/manager/home_cubit.dart';
+import 'package:i_tech/features/home/presentation/screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized;
@@ -15,15 +17,21 @@ class NotesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(authRepo: AuthRepo()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AuthCubit(authRepo: AuthRepo())),
+        BlocProvider(create: (context) => HomeCubit(homeRepo: HomeRepo())),
+      ],
       child: MaterialApp(
         theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            backgroundColor: AppColors.lightBackgroundColor,
+          ),
           scaffoldBackgroundColor: AppColors.lightBackgroundColor,
         ),
         title: "Notes App",
         debugShowCheckedModeBanner: false,
-        home: SignInScreen(),
+        home: HomeScreen(),
       ),
     );
   }
