@@ -6,7 +6,7 @@ import 'package:i_tech/core/widgets/app_text_form_field.dart';
 import 'package:i_tech/features/auth/presentation/manager/auth_cubit.dart';
 import 'package:i_tech/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:i_tech/features/auth/presentation/widgets/custom_have_account_widget.dart';
-import 'package:i_tech/features/auth/presentation/widgets/show_toast_msg.dart';
+import 'package:i_tech/core/widgets/show_toast_msg.dart';
 
 class SignInForm extends StatefulWidget {
   const new({super.key});

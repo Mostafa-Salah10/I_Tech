@@ -8,6 +8,8 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit({required this._homeRepo}) : super(HomeInitial());
   final HomeRepo _homeRepo;
 
+  List<NoteModel> notes = [];
+
   Future<void> getNotes() async {
     emit(GetNotesLoading());
     final result = await _homeRepo.getNotes();
@@ -16,7 +18,22 @@ class HomeCubit extends Cubit<HomeState> {
         emit(GetNotesFailure(errMsg: err));
       },
       (notes) {
-        emit(GetNotsSuccess(notes: notes));
+        this.notes = notes;
+        emit(GetNotsSuccess());
+      },
+    );
+  }
+
+  Future<void> deleteNote({required int noteId}) async {
+    emit(DeleteNoteLoading());
+    final result = await _homeRepo.deleteNote(noteId: noteId);
+    result.fold(
+      (err) {
+        emit(DeleteNoteFailure(errMsg: err));
+      },
+      (_) {
+        notes.removeWhere((note) => note.id == noteId);
+        emit(DeleteNoteSuccess());
       },
     );
   }

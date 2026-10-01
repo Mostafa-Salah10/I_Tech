@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:i_tech/core/themes/app_colors.dart';
 import 'package:i_tech/core/widgets/app_text_form_field.dart';
+import 'package:i_tech/core/widgets/show_toast_msg.dart';
 import 'package:i_tech/features/home/presentation/manager/home_cubit.dart';
 import 'package:i_tech/features/home/presentation/widgets/note_item.dart';
 
@@ -26,8 +27,24 @@ class HomeScreenBody extends StatelessWidget {
             ),
 
             Expanded(
-              child: BlocBuilder<HomeCubit, HomeState>(
+              child: BlocConsumer<HomeCubit, HomeState>(
+                listener: (context, state) {
+                  if (state is DeleteNoteFailure) {
+                    showAppSnackBar(
+                      context,
+                      text: state.errMsg,
+                      backgroundColor: AppColors.errorColor,
+                    );
+                  } else if (state is DeleteNoteSuccess) {
+                    showAppSnackBar(
+                      context,
+                      text: "Note Delete Successfully",
+                      backgroundColor: AppColors.primaryColor,
+                    );
+                  }
+                },
                 builder: (context, state) {
+                  final home = context.read<HomeCubit>();
                   if (state is GetNotesLoading) {
                     return Center(
                       child: CircularProgressIndicator(
@@ -45,17 +62,14 @@ class HomeScreenBody extends StatelessWidget {
                         ),
                       ),
                     );
-                  } else if (state is GetNotsSuccess) {
-                    return ListView.separated(
-                      itemCount: state.notes.length,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 15),
-                      itemBuilder: (context, index) =>
-                          NoteItem(note: state.notes.elementAt(index)),
-                    );
-                  } else {
-                    return const SizedBox();
                   }
+                  return ListView.separated(
+                    itemCount: home.notes.length,
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 15),
+                    itemBuilder: (context, index) =>
+                        NoteItem(note: home.notes.elementAt(index)),
+                  );
                 },
               ),
             ),

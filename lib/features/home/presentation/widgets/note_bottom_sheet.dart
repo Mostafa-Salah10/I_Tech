@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:i_tech/core/themes/app_colors.dart';
 import 'package:i_tech/core/widgets/app_button.dart';
 import 'package:i_tech/features/home/data/models/note_model.dart';
+import 'package:i_tech/features/home/presentation/manager/home_cubit.dart';
 import 'package:i_tech/features/home/presentation/widgets/note_item.dart';
 
 class NoteBottomSheet extends StatelessWidget {
@@ -10,6 +12,7 @@ class NoteBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final home = context.read<HomeCubit>();
     return SafeArea(
       child: Container(
         padding: EdgeInsets.all(25),
@@ -57,29 +60,46 @@ class NoteBottomSheet extends StatelessWidget {
             ),
             const Divider(height: 15, color: AppColors.textGrey, thickness: 1),
 
-            Row(
-              children: [
-                Icon(Icons.delete_outline, color: AppColors.textGrey, size: 28),
-                const SizedBox(width: 20),
-                Text("Delete Note", style: TextStyle(fontSize: 18)),
-                const Spacer(),
-                Transform.rotate(
-                  angle: (22 / 7),
-                  child: Icon(
-                    Icons.arrow_back_ios,
+            InkWell(
+              onTap: () async {
+                if (home.state is DeleteNoteLoading) return;
+                await home.deleteNote(noteId: note.id);
+                if (!context.mounted) return;
+                Navigator.of(context).pop();
+              },
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.delete_outline,
                     color: AppColors.textGrey,
-                    size: 20,
+                    size: 28,
                   ),
-                ),
-              ],
+                  const SizedBox(width: 20),
+                  Text("Delete Note", style: TextStyle(fontSize: 18)),
+                  const Spacer(),
+                  Transform.rotate(
+                    angle: (22 / 7),
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      color: AppColors.textGrey,
+                      size: 20,
+                    ),
+                  ),
+                ],
+              ),
             ),
 
-            AppButton(
-              textColor: AppColors.primaryColor,
-              text: "Cancel",
-              color: AppColors.primaryColor.withValues(alpha: 0.1),
-              onPressed: () {
-                Navigator.of(context).pop();
+            BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                return AppButton(
+                  textColor: AppColors.primaryColor,
+                  text: state is DeleteNoteLoading ? "Loading...." : "Cancel",
+                  color: AppColors.primaryColor.withValues(alpha: 0.1),
+                  onPressed: () {
+                    if (state is DeleteNoteLoading) return;
+                    Navigator.of(context).pop();
+                  },
+                );
               },
             ),
           ],

@@ -12,8 +12,14 @@ final class GetNotesFailure extends HomeState {
   new({required this.errMsg});
 }
 
-final class GetNotsSuccess extends HomeState {
-  final List<NoteModel> notes;
+final class GetNotsSuccess extends HomeState {}
 
-  new({required this.notes});
+final class DeleteNoteLoading extends HomeState {}
+
+final class DeleteNoteFailure extends HomeState {
+  final String errMsg;
+
+  new({required this.errMsg});
 }
+
+final class DeleteNoteSuccess extends HomeState {}

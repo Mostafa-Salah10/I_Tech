@@ -25,4 +25,23 @@ class HomeRepo {
       return left(e.toString());
     }
   }
+
+  Future<Either<String, Null>> deleteNote({required int noteId}) async {
+    try {
+      var response = await http.delete(
+        headers: {'Content-Type': 'application/json'},
+        Uri.parse(
+          "https://notesbackend-production-9eeb.up.railway.app/api/notes/$noteId",
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return right(null);
+      } else {
+        return left(jsonDecode(response.body)['message']);
+      }
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
 }
