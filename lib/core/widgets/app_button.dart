@@ -7,14 +7,18 @@ class AppButton extends StatelessWidget {
     this.onPressed,
     required this.text,
     this.color = AppColors.primaryColor,
+    this.textColor,
   });
   final VoidCallback? onPressed;
   final String text;
   final Color? color;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
+      elevation: 0,
+
       minWidth: double.infinity,
       height: 60,
       disabledColor: AppColors.primaryColor.withValues(alpha: 0.1),
@@ -24,7 +28,7 @@ class AppButton extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          color: AppColors.lightBackgroundColor,
+          color: textColor ?? AppColors.lightBackgroundColor,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),

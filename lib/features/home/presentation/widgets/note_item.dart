@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:i_tech/core/themes/app_colors.dart';
 import 'package:i_tech/features/home/data/models/note_model.dart';
+import 'package:i_tech/features/home/presentation/widgets/note_bottom_sheet.dart';
 
 import 'package:intl/intl.dart';
 
 class NoteItem extends StatelessWidget {
-  const NoteItem({super.key, required this.note});
+  const NoteItem({super.key, required this.note, this.withIcon = true});
   final NoteModel note;
+  final bool? withIcon;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(13),
+      padding: EdgeInsets.symmetric(horizontal: 13, vertical: 20),
       decoration: BoxDecoration(
         color: AppColors.greyColor.withValues(alpha: .15),
         borderRadius: BorderRadius.circular(15),
@@ -21,7 +23,7 @@ class NoteItem extends StatelessWidget {
         spacing: 13,
         children: [
           Container(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(13),
             decoration: BoxDecoration(
               color: AppColors.primaryColor.withValues(alpha: 0.2),
 
@@ -52,7 +54,7 @@ class NoteItem extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.greyColor,
+                    color: AppColors.textGrey,
                   ),
                 ),
 
@@ -63,7 +65,7 @@ class NoteItem extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.date_range,
-                      color: AppColors.greyColor,
+                      color: AppColors.textGrey,
                       size: 23,
                     ),
 
@@ -75,7 +77,7 @@ class NoteItem extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
-                          color: AppColors.greyColor,
+                          color: AppColors.textGrey,
                         ),
                       ),
                     ),
@@ -84,10 +86,23 @@ class NoteItem extends StatelessWidget {
               ],
             ),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.more_vert, size: 25, color: AppColors.greyColor),
-          ),
+
+          withIcon == true
+              ? IconButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (context) => NoteBottomSheet(note: note),
+                    );
+                  },
+                  icon: Icon(
+                    Icons.more_vert,
+                    size: 30,
+                    color: AppColors.textGrey,
+                  ),
+                )
+              : const SizedBox(width: 20),
         ],
       ),
     );

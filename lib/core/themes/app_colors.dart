@@ -9,4 +9,6 @@ abstract class AppColors {
   static const Color blueGreyColor = Color(0xFF607D8B);
   static const Color errorColor = Color(0xFFF44336);
   static const Color greyColor = Color(0xFF9E9E9E);
+  static const Color textGrey = Color(0xFF8A8AA3);
+  static const Color cardColor = Color(0xFFF9F9FF);
 }
