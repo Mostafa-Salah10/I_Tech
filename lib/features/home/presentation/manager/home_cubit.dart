@@ -12,16 +12,15 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> getNotes() async {
     emit(GetNotesLoading());
-    final result = await _homeRepo.getNotes();
-    result.fold(
-      (err) {
-        emit(GetNotesFailure(errMsg: err));
-      },
-      (notes) {
-        this.notes = notes;
-        emit(GetNotsSuccess());
-      },
-    );
+    try {
+      final notes = await _homeRepo.getNotes();
+
+      this.notes = notes;
+
+      emit(GetNotsSuccess());
+    } catch (e) {
+      emit(GetNotesFailure(errMsg: e.toString()));
+    }
   }
 
   Future<void> deleteNote({required int noteId}) async {

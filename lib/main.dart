@@ -19,6 +19,7 @@ class NotesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+
         BlocProvider(create: (context) => AuthCubit(authRepo: AuthRepo())),
         BlocProvider(create: (context) => HomeCubit(homeRepo: HomeRepo())),
       ],

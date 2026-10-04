@@ -6,7 +6,7 @@ import 'package:i_tech/features/home/data/models/note_model.dart';
 import 'package:http/http.dart' as http;
 
 class HomeRepo {
-  Future<Either<String, List<NoteModel>>> getNotes() async {
+  Future<List<NoteModel>> getNotes() async {
     try {
       var response = await http.get(
         Uri.parse(
@@ -17,12 +17,19 @@ class HomeRepo {
       final List bodyList = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        return right([...bodyList.map((note) => NoteModel.fromJson(note))]);
+        // List<NoteModel> notes = [];
+
+        // for (var note in bodyList) {
+        //   notes.add(NoteModel.fromJson(note));
+        // }
+
+        // return notes;
+        return [...bodyList.map((note) => NoteModel.fromJson(note))];
       } else {
-        return left('Error When Fetch Notes');
+        throw Exception('Error When Fetch Notes');
       }
     } catch (e) {
-      return left(e.toString());
+      throw Exception(e.toString());
     }
   }
 
