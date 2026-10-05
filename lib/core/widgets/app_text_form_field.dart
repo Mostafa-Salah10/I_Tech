@@ -13,8 +13,11 @@ class AppTextFormField extends StatelessWidget {
   final int? minLines;
   final ValueChanged<String>? onChanged;
 
+  final int? maxLength;
+
   const AppTextFormField({
     super.key,
+    this.maxLength,
     this.validator,
     this.hint,
     this.isSecure,
@@ -29,41 +32,53 @@ class AppTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      onChanged: onChanged,
-      maxLines: maxLines ?? 1,
-      minLines: minLines ?? 1,
-      controller: controller,
-      keyboardType: keyboardTyp,
-      cursorColor: AppColors.primaryColor,
-      onTapOutside: (event) => FocusScope.of(context).unfocus(),
-      validator: validator,
-      obscureText: isSecure ?? false,
-      decoration: InputDecoration(
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
+    final prefixMultipleLineIcon = (maxLines ?? 1) > 1 && prefixIcon != null;
 
-        filled: true,
-
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.greyColor),
-        fillColor: AppColors.greyColor.withValues(alpha: 0.15),
-        contentPadding: const EdgeInsets.all(17),
-        errorBorder: _customBorder(color: AppColors.errorColor),
-        focusedErrorBorder: _customBorder(color: AppColors.errorColor),
-        focusedBorder: _customBorder(color: AppColors.primaryColor),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(14),
+    return Stack(
+      children: [
+        TextFormField(
+          maxLength: maxLength,
+          onChanged: onChanged,
+          maxLines: maxLines ?? 1,
+          minLines: minLines ?? 1,
+          controller: controller,
+          keyboardType: keyboardTyp,
+          cursorColor: AppColors.primaryColor,
+          onTapOutside: (event) => FocusScope.of(context).unfocus(),
+          validator: validator,
+          obscureText: isSecure ?? false,
+          decoration: InputDecoration(
+            prefixIcon: prefixMultipleLineIcon ? null : prefixIcon,
+            suffixIcon: suffixIcon,
+            filled: true,
+            hintStyle: TextStyle(fontSize: 18, color: AppColors.blueGreyColor),
+            fillColor: AppColors.greyColor.withValues(alpha: 0.15),
+            contentPadding: EdgeInsets.fromLTRB(
+              prefixMultipleLineIcon ? 53 : 17,
+              17,
+              17,
+              17,
+            ),
+            errorBorder: _customBorder(color: AppColors.errorColor),
+            focusedErrorBorder: _customBorder(color: AppColors.errorColor),
+            focusedBorder: _customBorder(color: AppColors.primaryColor),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(14),
+            ),
+            hintText: hint,
+          ),
         ),
-        hintText: hint,
-      ),
+        if (prefixMultipleLineIcon)
+          PositionedDirectional(start: 17, top: 17, child: prefixIcon!),
+      ],
     );
   }
+}
 
-  OutlineInputBorder _customBorder({required Color color}) {
-    return OutlineInputBorder(
-      borderSide: BorderSide(color: color, width: 2),
-      borderRadius: BorderRadius.circular(20),
-    );
-  }
+OutlineInputBorder _customBorder({required Color color}) {
+  return OutlineInputBorder(
+    borderSide: BorderSide(color: color, width: 2),
+    borderRadius: BorderRadius.circular(20),
+  );
 }

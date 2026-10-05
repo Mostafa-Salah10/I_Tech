@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:i_tech/core/themes/app_colors.dart';
 import 'package:i_tech/core/widgets/app_text_form_field.dart';
 import 'package:i_tech/core/widgets/show_toast_msg.dart';
-import 'package:i_tech/features/home/presentation/manager/home_cubit.dart';
+import 'package:i_tech/features/home/presentation/manager/home/home_cubit.dart';
 import 'package:i_tech/features/home/presentation/widgets/note_item.dart';
 
 class HomeScreenBody extends StatelessWidget {

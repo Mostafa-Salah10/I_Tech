@@ -51,4 +51,48 @@ class HomeRepo {
       return left(e.toString());
     }
   }
+
+  Future<void> updateNote({required NoteModel note}) async {
+    try {
+      var response = await http.put(
+        headers: {'Content-Type': 'application/json'},
+        Uri.parse(
+          "https://notesbackend-production-9eeb.up.railway.app/api/notes/${note.id}",
+        ),
+        body: jsonEncode({'title': note.title, 'content': note.content}),
+      );
+
+      final body = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        return;
+      } else {
+        throw Exception(body['message']);
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> addNote({required String title, required String content}) async {
+    try {
+      var response = await http.post(
+        headers: {'Content-Type': 'application/json'},
+        Uri.parse(
+          "https://notesbackend-production-9eeb.up.railway.app/api/notes",
+        ),
+        body: jsonEncode({'title': title, 'content': content}),
+      );
+
+      final body = jsonDecode(response.body);
+
+      if (response.statusCode == 201) {
+        return;
+      } else {
+        throw Exception(body['message']);
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }

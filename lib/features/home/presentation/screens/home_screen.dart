@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:i_tech/core/themes/app_colors.dart';
-import 'package:i_tech/features/home/presentation/manager/home_cubit.dart';
+import 'package:i_tech/features/home/presentation/manager/home/home_cubit.dart';
+import 'package:i_tech/features/home/presentation/screens/add_note_screen.dart';
 import 'package:i_tech/features/home/presentation/widgets/home_screen_body.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,7 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddNoteScreen()),
+          );
+        },
         shape: CircleBorder(),
         backgroundColor: AppColors.primaryColor,
         child: Icon(Icons.add, color: AppColors.lightBackgroundColor, size: 25),

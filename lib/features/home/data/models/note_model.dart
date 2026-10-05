@@ -12,4 +12,6 @@ class NoteModel {
       content: note['content'],
     );
   }
+
+
 }

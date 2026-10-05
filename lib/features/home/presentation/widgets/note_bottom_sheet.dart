@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:i_tech/core/themes/app_colors.dart';
 import 'package:i_tech/core/widgets/app_button.dart';
 import 'package:i_tech/features/home/data/models/note_model.dart';
-import 'package:i_tech/features/home/presentation/manager/home_cubit.dart';
+import 'package:i_tech/features/home/presentation/manager/home/home_cubit.dart';
 import 'package:i_tech/features/home/presentation/widgets/note_item.dart';
 
 class NoteBottomSheet extends StatelessWidget {

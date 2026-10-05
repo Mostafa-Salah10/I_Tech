@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 class NoteItem extends StatelessWidget {
   const NoteItem({super.key, required this.note, this.withIcon = true});
   final NoteModel note;
-  final bool? withIcon;
+  final bool withIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -63,11 +63,7 @@ class NoteItem extends StatelessWidget {
                 Row(
                   spacing: 10,
                   children: [
-                    Icon(
-                      Icons.date_range,
-                      color: AppColors.textGrey,
-                      size: 23,
-                    ),
+                    Icon(Icons.date_range, color: AppColors.textGrey, size: 23),
 
                     Expanded(
                       child: Text(
@@ -87,7 +83,7 @@ class NoteItem extends StatelessWidget {
             ),
           ),
 
-          withIcon == true
+          withIcon
               ? IconButton(
                   onPressed: () {
                     showModalBottomSheet(
