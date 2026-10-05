@@ -4,6 +4,7 @@ import 'package:i_tech/core/themes/app_colors.dart';
 import 'package:i_tech/core/widgets/app_button.dart';
 import 'package:i_tech/features/home/data/models/note_model.dart';
 import 'package:i_tech/features/home/presentation/manager/home/home_cubit.dart';
+import 'package:i_tech/features/home/presentation/screens/update_note_screen.dart';
 import 'package:i_tech/features/home/presentation/widgets/note_item.dart';
 
 class NoteBottomSheet extends StatelessWidget {
@@ -42,21 +43,36 @@ class NoteBottomSheet extends StatelessWidget {
 
             const Divider(height: 15, color: AppColors.textGrey, thickness: 1),
 
-            Row(
-              children: [
-                Icon(Icons.edit_outlined, color: AppColors.textGrey, size: 28),
-                const SizedBox(width: 20),
-                Text("Edit Note", style: TextStyle(fontSize: 18)),
-                const Spacer(),
-                Transform.rotate(
-                  angle: (22 / 7),
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    color: AppColors.textGrey,
-                    size: 20,
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UpdateNoteScreen(note: note),
                   ),
-                ),
-              ],
+                );
+              },
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.edit_outlined,
+                    color: AppColors.textGrey,
+                    size: 28,
+                  ),
+                  const SizedBox(width: 20),
+                  Text("Edit Note", style: TextStyle(fontSize: 18)),
+                  const Spacer(),
+                  Transform.rotate(
+                    angle: (22 / 7),
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      color: AppColors.textGrey,
+                      size: 20,
+                    ),
+                  ),
+                ],
+              ),
             ),
             const Divider(height: 15, color: AppColors.textGrey, thickness: 1),
 
