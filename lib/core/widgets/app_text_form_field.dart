@@ -12,7 +12,7 @@ class AppTextFormField extends StatelessWidget {
   final int? maxLines;
   final int? minLines;
   final ValueChanged<String>? onChanged;
-  final String ? initialValue;
+  final String? initialValue;
 
   final int? maxLength;
 
@@ -28,7 +28,8 @@ class AppTextFormField extends StatelessWidget {
     this.controller,
     this.maxLines,
     this.minLines,
-    this.onChanged, this.initialValue,
+    this.onChanged,
+    this.initialValue,
   });
 
   @override
@@ -38,7 +39,7 @@ class AppTextFormField extends StatelessWidget {
     return Stack(
       children: [
         TextFormField(
-          initialValue:initialValue ,
+          initialValue: initialValue,
           maxLength: maxLength,
           onChanged: onChanged,
           maxLines: maxLines ?? 1,

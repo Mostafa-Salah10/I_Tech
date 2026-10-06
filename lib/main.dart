@@ -27,6 +27,8 @@ class NotesApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+
+        
         theme: ThemeData(
           appBarTheme: AppBarTheme(
             backgroundColor: AppColors.lightBackgroundColor,

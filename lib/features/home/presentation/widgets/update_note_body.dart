@@ -35,7 +35,7 @@ class _UpdateNoteBodyState extends State<UpdateNoteBody> {
       child: Column(
         children: [
           AppTextFormField(
-            initialValue: widget.note.title,
+            initialValue: title,
             onChanged: (title) {
               this.title = title;
             },
@@ -53,7 +53,7 @@ class _UpdateNoteBodyState extends State<UpdateNoteBody> {
 
           const SizedBox(height: 20),
           AppTextFormField(
-            initialValue: widget.note.content,
+            initialValue: description,
 
             onChanged: (desc) {
               description = desc;
