@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "251317764116",
+    "project_id": "i-tech-5340a",
+    "storage_bucket": "i-tech-5340a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251317764116:android:d50f1ab1dacc4fdab0a701",
+        "android_client_info": {
+          "package_name": "com.example.i_tech"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlAUW7RN4MIO3YRl0YWFW4hopsWEYdtX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
